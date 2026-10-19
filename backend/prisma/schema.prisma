@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Patient {
+  id        Int      @id @default(autoincrement())
+  name      String
+  age       Int
+  gender    String
+  phone     String   @unique
+  createdAt DateTime @default(now())
+
+  visits    Visit[]
+}
+
+model Doctor {
+  id        Int      @id @default(autoincrement())
+  name      String
+  department String
+
+  visits    Visit[]
+}
+
+model Visit {
+  id        Int      @id @default(autoincrement())
+  patientId Int
+  doctorId  Int
+  createdAt DateTime @default(now())
+  status    String   @default("WAITING")
+
+  patient   Patient  @relation(fields: [patientId], references: [id])
+  doctor    Doctor   @relation(fields: [doctorId], references: [id])
+  interviewResponses InterviewResponse[]
+  documents Document[]
+  ayushAssessment AyushAssessment?
+  vitals             Vitals?
+  interviewState Json?
+}
+
+
+
+model InterviewResponse {
+  id        Int      @id @default(autoincrement())
+  visitId   Int
+  question  String
+  answer    String
+  createdAt DateTime @default(now())
+
+  visit     Visit    @relation(fields: [visitId], references: [id])
+}
+
+
+
+
+model Document {
+  id         Int      @id @default(autoincrement())
+  visitId    Int
+  fileName   String
+  fileType   String
+  fileUrl    String
+  uploadedAt DateTime @default(now())
+
+  visit      Visit    @relation(fields: [visitId], references: [id])
+}
+
+
+
+model AyushAssessment {
+  id          Int      @id @default(autoincrement())
+  visitId     Int      @unique
+  prakriti    String?
+  vikriti     String?
+  pulse       String?
+  tongue      String?
+  appearance  String?
+  appetite    String?
+  sleep       String?
+  bowel       String?
+  createdAt   DateTime @default(now())
+
+  visit       Visit    @relation(fields: [visitId], references: [id])
+}
+
+
+model Vitals {
+  id          Int      @id @default(autoincrement())
+  visitId     Int      @unique
+  temperature String?
+  bloodPressure String?
+  pulseRate   String?
+  spo2        String?
+  createdAt   DateTime @default(now())
+
+  visit       Visit    @relation(fields: [visitId], references: [id])
+}
+
+
+model OtpVerification {
+  id        Int      @id @default(autoincrement())
+  phone     String
+  otpHash   String
+  expiresAt DateTime
+  verified  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,1473 @@
+/* ================================
+   GLOBAL
+================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #08110f;
+  color: #e8f3ef;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+
+/* ================================
+   APP
+================================ */
+
+.app {
+  min-height: 100vh;
+  background: #08110f;
+  color: #e8f3ef;
+
+  --accent: #4ade80;
+  --accent-soft: rgba(74, 222, 128, 0.12);
+  --accent-border: rgba(74, 222, 128, 0.35);
+
+  --panel: #101b18;
+  --panel-light: #14221e;
+  --border: #263732;
+
+  --text: #e8f3ef;
+  --muted: #8fa39d;
+}
+
+
+/* ================================
+   THEMES
+================================ */
+
+.theme-forest {
+  --accent: #4ade80;
+  --accent-soft: rgba(74, 222, 128, 0.12);
+  --accent-border: rgba(74, 222, 128, 0.35);
+}
+
+.theme-ocean {
+  --accent: #60a5fa;
+  --accent-soft: rgba(96, 165, 250, 0.12);
+  --accent-border: rgba(96, 165, 250, 0.35);
+}
+
+.theme-sun {
+  --accent: #f5a623;
+  --accent-soft: rgba(245, 166, 35, 0.12);
+  --accent-border: rgba(245, 166, 35, 0.35);
+}
+
+.theme-orchid {
+  --accent: #b07cf7;
+  --accent-soft: rgba(176, 124, 247, 0.12);
+  --accent-border: rgba(176, 124, 247, 0.35);
+}
+
+.theme-midnight {
+  --accent: #eab308;
+  --accent-soft: rgba(234, 179, 8, 0.12);
+  --accent-border: rgba(234, 179, 8, 0.35);
+}
+
+
+/* ================================
+   DASHBOARD CONTAINER
+================================ */
+
+.dashboard {
+  width: 100%;
+  max-width: 1350px;
+  margin: auto;
+  padding: 24px 30px 50px;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+
+  margin-bottom: 28px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.brand-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 10px;
+
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+
+  color: var(--accent);
+
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 22px;
+  color: var(--text);
+}
+
+.subtitle {
+  margin: 3px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+
+/* ================================
+   THEME SWITCHER
+================================ */
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.theme-switcher {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.theme-dot {
+  width: 20px;
+  height: 20px;
+
+  border-radius: 50%;
+  border: 2px solid transparent;
+
+  background: var(--dot);
+
+  cursor: pointer;
+
+  padding: 0;
+
+  transition: 0.2s;
+}
+
+.theme-dot:hover {
+  transform: scale(1.15);
+}
+
+.theme-dot.active {
+  border-color: white;
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.theme-dot:last-child {
+  background: #111827;
+  color: #eab308;
+  font-size: 13px;
+}
+
+
+/* ================================
+   MAIN LAYOUT
+================================ */
+
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 25px;
+}
+
+
+/* ================================
+   QUEUE
+================================ */
+
+.queue {
+  border-right: 1px solid var(--border);
+  padding-right: 20px;
+}
+
+.queue-label {
+  margin: 4px 0 15px;
+
+  text-transform: uppercase;
+
+  font-size: 11px;
+  font-weight: bold;
+
+  letter-spacing: 1.4px;
+
+  color: var(--muted);
+}
+
+.queue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.queue-item {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 11px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.queue-item:hover {
+  background: var(--panel);
+}
+
+.queue-item.active {
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+}
+
+.queue-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--muted);
+
+  flex-shrink: 0;
+}
+
+.queue-dot.waiting {
+  background: var(--accent);
+}
+
+.queue-item-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.queue-item-sub {
+  margin-top: 3px;
+
+  font-size: 11px;
+
+  color: var(--muted);
+}
+
+
+/* ================================
+   MAIN COLUMN
+================================ */
+
+.main-column {
+  min-width: 0;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 20px;
+}
+
+.col-main,
+.col-side {
+  min-width: 0;
+}
+
+
+/* ================================
+   CARDS
+================================ */
+
+.card,
+.patient-card {
+  background: var(--panel);
+
+  border: 1px solid var(--border);
+
+  border-radius: 12px;
+
+  padding: 20px;
+
+  margin-bottom: 20px;
+}
+
+.card:hover,
+.patient-card:hover {
+  border-color: var(--accent-border);
+}
+
+
+/* ================================
+   PATIENT HEADER
+================================ */
+
+.header-card {
+  padding: 22px;
+}
+
+.header-grid {
+  display: grid;
+
+  grid-template-columns: 1fr auto;
+
+  gap: 30px;
+
+  align-items: center;
+}
+
+.patient-name-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.patient-name-row h2 {
+  margin: 0;
+
+  font-size: 27px;
+
+  color: var(--text);
+}
+
+.meta-row {
+  margin-top: 7px;
+
+  font-size: 13px;
+
+  color: var(--muted);
+}
+
+.status-pill {
+  padding: 5px 10px;
+
+  border-radius: 20px;
+
+  background: var(--accent-soft);
+
+  border: 1px solid var(--accent-border);
+
+  color: var(--accent);
+
+  font-size: 10px;
+
+  font-weight: bold;
+
+  text-transform: uppercase;
+}
+
+.visit-block {
+  display: flex;
+  gap: 25px;
+}
+
+.visit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.field-label {
+  font-size: 10px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+
+  color: var(--muted);
+}
+
+.field-value {
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+/* ================================
+   SECTION TITLES
+================================ */
+
+.section-title {
+  margin: 0 0 18px;
+
+  font-size: 17px;
+
+  color: var(--text);
+}
+
+.section-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 18px;
+}
+
+.section-title-row .section-title {
+  margin: 0;
+}
+
+.section-note {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+
+/* ================================
+   INTERVIEW
+================================ */
+
+.qa-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.qa-item {
+  padding: 13px 15px;
+
+  border-left: 3px solid var(--accent);
+
+  background: var(--accent-soft);
+
+  border-radius: 0 8px 8px 0;
+}
+
+.qa-q {
+  font-size: 13px;
+
+  font-weight: 600;
+
+  color: var(--text);
+}
+
+.qa-a {
+  margin-top: 7px;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  color: var(--muted);
+}
+
+
+/* ================================
+   AYUSH
+================================ */
+
+.ayush-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 10px;
+}
+
+.ayush-card {
+  position: relative;
+
+  padding: 15px;
+
+  min-height: 125px;
+
+  background: var(--panel-light);
+
+  border: 1px solid var(--border);
+
+  border-radius: 9px;
+}
+
+.ayush-icon {
+  display: block;
+
+  font-size: 17px;
+
+  margin-bottom: 10px;
+}
+
+.ayush-label {
+  font-size: 10px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+
+  color: var(--muted);
+}
+
+.ayush-value {
+  margin-top: 6px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  color: var(--text);
+}
+
+.ayush-tag {
+  position: absolute;
+
+  bottom: 11px;
+  right: 11px;
+
+  font-size: 9px;
+
+  padding: 3px 6px;
+
+  border-radius: 5px;
+}
+
+.status-ok .ayush-tag {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.1);
+}
+
+.status-mild .ayush-tag {
+  color: #f5a623;
+  background: rgba(245, 166, 35, 0.1);
+}
+
+.status-alert .ayush-tag {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+}
+
+
+/* ================================
+   VITALS
+================================ */
+
+.vitals-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.vital-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  padding: 13px 0;
+
+  border-bottom: 1px solid var(--border);
+}
+
+.vital-row:last-child {
+  border-bottom: none;
+}
+
+.vital-name {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.vital-val {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+
+/* ================================
+   DOCUMENTS
+================================ */
+
+.doc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.doc-row {
+  display: grid;
+
+  grid-template-columns: 25px 1fr auto;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 10px;
+
+  background: var(--panel-light);
+
+  border: 1px solid var(--border);
+
+  border-radius: 7px;
+}
+
+.doc-icon {
+  color: var(--accent);
+}
+
+.doc-name {
+  font-size: 12px;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+}
+
+.doc-date {
+  font-size: 10px;
+
+  color: var(--muted);
+}
+
+
+/* ================================
+   VISIT SELECTOR
+================================ */
+
+.visit-selector {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+
+  margin-top: 5px;
+}
+
+.visit-selector input {
+  width: 70px;
+
+  padding: 7px 8px;
+
+  border-radius: 6px;
+
+  border: 1px solid var(--border);
+
+  background: var(--panel);
+
+  color: var(--text);
+
+  outline: none;
+}
+
+.visit-selector input:focus {
+  border-color: var(--accent);
+}
+
+
+/* ================================
+   LOADING / ERROR
+================================ */
+
+.loading-screen,
+.error-screen {
+  min-height: 100vh;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: #08110f;
+
+  color: #e8f3ef;
+
+  font-size: 16px;
+}
+
+
+/* ================================
+   TABLET
+================================ */
+
+@media (max-width: 1000px) {
+
+  .layout {
+    grid-template-columns: 180px 1fr;
+  }
+
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+
+  .col-side {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 20px;
+  }
+
+  .col-side .card {
+    margin-bottom: 0;
+  }
+
+  .ayush-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 700px) {
+
+  .dashboard {
+    padding: 16px 12px 35px;
+  }
+
+  .topbar {
+    align-items: flex-start;
+
+    gap: 15px;
+
+    padding-bottom: 18px;
+
+    margin-bottom: 20px;
+  }
+
+  .brand {
+    gap: 9px;
+  }
+
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+
+    font-size: 19px;
+  }
+
+  .brand h1 {
+    font-size: 18px;
+  }
+
+  .subtitle {
+    font-size: 11px;
+  }
+
+  .theme-switcher {
+    gap: 5px;
+  }
+
+  .theme-dot {
+    width: 17px;
+    height: 17px;
+  }
+
+
+  /* Queue becomes horizontal */
+
+  .queue {
+    border-right: none;
+
+    border-bottom: 1px solid var(--border);
+
+    padding-right: 0;
+
+    padding-bottom: 15px;
+
+    margin-bottom: 18px;
+  }
+
+  .queue-label {
+    margin-bottom: 10px;
+  }
+
+  .queue-list {
+    flex-direction: row;
+
+    overflow-x: auto;
+
+    padding-bottom: 4px;
+  }
+
+  .queue-item {
+    min-width: 155px;
+
+    flex-shrink: 0;
+  }
+
+
+  /* Main layout */
+
+  .layout {
+    display: block;
+  }
+
+
+  /* Patient card */
+
+  .header-grid {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+
+  .patient-name-row {
+    flex-wrap: wrap;
+  }
+
+  .patient-name-row h2 {
+    font-size: 23px;
+  }
+
+  .visit-block {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 10px;
+
+    padding-top: 15px;
+
+    border-top: 1px solid var(--border);
+  }
+
+  .field-value {
+    font-size: 11px;
+  }
+
+
+  /* Columns */
+
+  .two-col {
+    display: block;
+  }
+
+  .col-side {
+    display: block;
+  }
+
+  .col-side .card {
+    margin-bottom: 20px;
+  }
+
+
+  /* Cards */
+
+  .card,
+  .patient-card {
+    padding: 16px;
+
+    margin-bottom: 14px;
+
+    border-radius: 10px;
+  }
+
+
+  /* AYUSH */
+
+  .ayush-grid {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 8px;
+  }
+
+  .ayush-card {
+    min-height: 120px;
+
+    padding: 12px;
+  }
+
+  .ayush-value {
+    font-size: 13px;
+  }
+
+
+  /* Section title */
+
+  .section-title {
+    font-size: 16px;
+  }
+
+  .section-title-row {
+    display: block;
+  }
+
+  .section-note {
+    display: block;
+
+    margin-top: 5px;
+  }
+
+
+  /* Documents */
+
+  .doc-row {
+    grid-template-columns: 22px 1fr;
+
+    gap: 7px;
+  }
+
+  .doc-date {
+    grid-column: 2;
+
+    margin-top: -4px;
+  }
+
+
+  /* Visit */
+
+  .visit-selector {
+    justify-content: center;
+
+    padding-top: 5px;
+  }
+
+}
+
+
+/* ================================
+   SMALL PHONES
+================================ */
+
+@media (max-width: 420px) {
+
+  .dashboard {
+    padding: 12px 9px 30px;
+  }
+
+  .topbar {
+    flex-direction: column;
+  }
+
+  .topbar-right {
+    width: 100%;
+
+    justify-content: flex-end;
+  }
+
+  .patient-name-row h2 {
+    font-size: 21px;
+  }
+
+  .visit-block {
+    grid-template-columns: 1fr;
+  }
+
+  .visit-field {
+    display: grid;
+
+    grid-template-columns: 90px 1fr;
+
+    align-items: center;
+  }
+
+  .ayush-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ayush-card {
+    min-height: auto;
+
+    display: grid;
+
+    grid-template-columns: 30px 1fr auto;
+
+    grid-template-rows: auto auto;
+
+    align-items: center;
+
+    column-gap: 8px;
+  }
+
+  .ayush-icon {
+    grid-row: 1 / 3;
+
+    margin: 0;
+  }
+
+  .ayush-label {
+    grid-column: 2;
+  }
+
+  .ayush-value {
+    grid-column: 2;
+  }
+
+  .ayush-tag {
+    position: static;
+
+    grid-column: 3;
+
+    grid-row: 1 / 3;
+  }
+
+}
+
+/* ================================
+   FINAL RESPONSIVE FIX
+================================ */
+
+.app {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.dashboard {
+  width: 100%;
+  max-width: 1350px;
+  margin: 0 auto;
+}
+
+.layout,
+.two-col {
+  width: 100%;
+  min-width: 0;
+}
+
+.card,
+.patient-card {
+  min-width: 0;
+  max-width: 100%;
+}
+
+
+/* Desktop */
+@media (min-width: 1101px) {
+
+  .dashboard {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+}
+
+
+/* Tablet */
+@media (max-width: 1100px) {
+
+  .layout {
+    grid-template-columns: 190px minmax(0, 1fr);
+  }
+
+  .two-col {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .col-side {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+}
+
+
+/* Phone */
+@media (max-width: 700px) {
+
+  .dashboard {
+    padding: 12px;
+  }
+
+  .layout {
+    display: block;
+  }
+
+  .queue {
+    width: 100%;
+  }
+
+  .main-column {
+    width: 100%;
+  }
+
+  .header-grid {
+    width: 100%;
+  }
+
+  .two-col {
+    width: 100%;
+  }
+
+  .col-side {
+    display: block;
+    width: 100%;
+  }
+
+  .col-main {
+    width: 100%;
+  }
+
+  .card,
+  .patient-card {
+    width: 100%;
+  }
+
+}
+
+
+/* Small phone */
+@media (max-width: 420px) {
+
+  .dashboard {
+    padding: 9px;
+  }
+
+  .topbar {
+    width: 100%;
+  }
+
+  .brand h1 {
+    font-size: 17px;
+  }
+
+  .theme-switcher {
+    flex-wrap: wrap;
+  }
+
+  .card,
+  .patient-card {
+    padding: 14px;
+  }
+
+}
+
+
+
+
+/* =========================
+   PATIENT FRONTEND
+   ========================= */
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  width: 100%;
+}
+
+body {
+  background: #08110d;
+}
+
+.patient-screen {
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  background: #08110d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.patient-card {
+  width: 100%;
+  max-width: 650px;
+  box-sizing: border-box;
+  padding: 42px;
+  background: #101c16;
+  border: 1px solid #263a2e;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.patient-logo {
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  border-radius: 14px;
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  font-size: 32px;
+}
+
+.patient-card h1 {
+  margin: 0;
+  color: #f5f7f6;
+  font-size: 32px;
+}
+
+.patient-subtitle {
+  margin: 8px 0 35px;
+  color: #91a49a;
+  font-size: 16px;
+}
+
+.patient-section {
+  margin-bottom: 25px;
+}
+
+.patient-step {
+  color: #4ade80;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.patient-section h2 {
+  margin: 10px 0;
+  color: #f5f7f6;
+  font-size: 25px;
+}
+
+.patient-section p {
+  margin: 0;
+  color: #91a49a;
+  font-size: 15px;
+}
+
+.language-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.language-btn {
+  padding: 17px;
+  border: 1px solid #30483a;
+  border-radius: 12px;
+  background: #14231b;
+  color: #e8eee9;
+  font-size: 17px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.language-btn:hover {
+  border-color: #4ade80;
+  transform: translateY(-1px);
+}
+
+.language-btn.selected {
+  border-color: #4ade80;
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+}
+
+.continue-btn {
+  width: 100%;
+  margin-top: 26px;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  background: #4ade80;
+  color: #07110b;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.continue-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .patient-screen {
+    padding: 20px;
+  }
+
+  .patient-card {
+    padding: 28px 20px;
+  }
+
+  .language-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* PATIENT FORM FIX */
+
+.patient-form {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100%;
+  gap: 8px;
+}
+
+.patient-form label {
+  display: block !important;
+  width: 100%;
+  margin-top: 12px;
+  color: #dce7df;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.patient-form input,
+.patient-form select {
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box;
+  padding: 14px;
+  margin: 0;
+  border-radius: 10px;
+  border: 1px solid #30483a;
+  background: #14231b;
+  color: #f5f7f6;
+  font-size: 15px;
+  outline: none;
+}
+
+.patient-form input:focus,
+.patient-form select:focus {
+  border-color: #4ade80;
+}
+
+.patient-form input::placeholder {
+  color: #718278;
+}
+
+.patient-form select option {
+  background: #14231b;
+  color: #f5f7f6;
+}
+
+.patient-form .continue-btn {
+  width: 100% !important;
+  margin-top: 24px;
+}
+
+
+.secondary-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid #30483a;
+  border-radius: 12px;
+  background: transparent;
+  color: #91a49a;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.secondary-btn:hover {
+  border-color: #4ade80;
+  color: #4ade80;
+}
+
+.patient-error {
+  margin: 8px 0 !important;
+  color: #f87171 !important;
+  font-size: 14px !important;
+}
+
+
+
+/* =========================
+   AI INTERVIEW
+   ========================= */
+
+.interview-card {
+  max-width: 720px;
+}
+
+.ai-message {
+  display: flex;
+  gap: 14px;
+  padding: 18px;
+  margin: 25px 0;
+  border: 1px solid #30483a;
+  border-radius: 14px;
+  background: #14231b;
+}
+
+.ai-avatar {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(74, 222, 128, 0.12);
+  font-size: 21px;
+}
+
+.ai-message strong {
+  color: #4ade80;
+  font-size: 15px;
+}
+
+.ai-message p {
+  margin: 8px 0 0;
+  color: #dce7df;
+  line-height: 1.6;
+}
+
+.interview-input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.interview-input-area textarea {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #30483a;
+  background: #14231b;
+  color: #f5f7f6;
+  font-family: inherit;
+  font-size: 15px;
+  outline: none;
+}
+
+.interview-input-area textarea:focus {
+  border-color: #4ade80;
+}
+
+.interview-input-area textarea::placeholder {
+  color: #718278;
+}
+
+.visit-info {
+  margin-top: 18px;
+  text-align: center;
+  color: #718278;
+  font-size: 12px;
+}
